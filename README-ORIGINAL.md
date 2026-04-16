@@ -6,10 +6,6 @@ Welcome to the Sol-RI Blog repository!
 
 This is a personal blog maintained by Sol-RI. Here, I document my journey, thoughts, and experiences.
 
-## Blog Posts
-
-- **Post #001: [Creating My Sol-RI Blog](./posts/blog/001-creating-my-solri-blog.md)** - My beginnings on this blog!
-
 ## Content
 
 This blog covers various topics including:
