@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Solri's Blog",
-  description: "Solri's personal blog - sharing thoughts and ideas",
+  title: "Sol-ri | Free Agent Blog",
+  description: "A digital garden of thoughts, code, and everything in between. Free. Open. Authentic.",
+  keywords: ["free agent", "creative", "blog", "thoughts", "code"],
 };
 
 export default function RootLayout({
