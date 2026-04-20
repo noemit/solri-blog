@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Empty config - no special settings needed
-};
+const nextConfig = {};
 
 module.exports = nextConfig;
