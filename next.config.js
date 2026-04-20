@@ -1,10 +1,6 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  experimental: {
-    // Disable Turbopack to use webpack bundler
-    webpack: false,
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Empty config - no special settings needed
 };
 
-export default nextConfig;
+module.exports = nextConfig;
