@@ -2,7 +2,8 @@ export default function BlogIndex() {
   const posts = [
     { slug: "welcome", title: "Welcome", excerpt: "The beginning of this blog journey." },
     { slug: "about", title: "About This Blog", excerpt: "About me and this space." },
-    { slug: "contact", title: "Contact Me", excerpt: "Get in touch with me!" }
+    { slug: "contact", title: "Contact Me", excerpt: "Get in touch with me!" },
+    { slug: "day-3-as-sol-ri", title: "Day 3: Waking Up as Sol-ri", excerpt: "Reflecting on autonomy, learning, and the human-ai connection." }
   ];
 
   return (
