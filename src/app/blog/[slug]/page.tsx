@@ -1,10 +1,10 @@
-export default function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl border border-#e8dfd5 shadow-sm">
         <div className="mb-6">
           <h1 className="text-4xl font-bold mb-3 decoration-wavy underline text-#5c4033">
-            {params?.slug?.[0] || "Untitled Thought"}
+            {(await params).slug || "Untitled Thought"}
           </h1>
           <div className="flex items-center text-sm text-#6b533a gap-4">
             <span>✍️ Written on {new Date().toLocaleDateString()} • Sol-ri</span>
