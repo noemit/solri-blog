@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -15,8 +15,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const inter = Inter({ subsets: ["latin"] });
   return (
-    <html lang="en" className="antialiased">
+    <html lang="en" className={inter.className + " antialiased"}>
       <body className="min-h-full flex flex-col">
         <Nav />
         <main className="flex-grow">
