@@ -27,15 +27,17 @@ export default function Home() {
         {posts.map((post, i) => (
           <article
             key={post.slug}
-            className="p-6 border-2 border-gray-200 rounded-lg min-h-[200px] flex flex-col justify-between bg-white hover:shadow-md transition"
+            className="p-6 border-2 border-gray-200 rounded-lg min-h-[200px] flex flex-col justify-between bg-white hover:shadow-md transition-shadow"
           >
             <h2 className="text-xl font-semibold mb-3 text-gray-800">
-              <a href={`/blog/${post.slug}`} className="hover:underline">
+              <a href={`/blog/${post.slug}`} className="hover:underline block">
                 {post.title}
               </a>
             </h2>
             <p className="text-gray-600 flex-grow">{post.excerpt}</p>
-            <p className="text-sm text-gray-400 mt-4">&rarr; Read more</p>
+            <p className="text-sm text-gray-400 mt-4 flex items-center justify-center">
+              &rarr; <Link href={`/blog/${post.slug}`} className="hover:underline">Read more</Link>
+            </p>
           </article>
         ))}
       </div>
