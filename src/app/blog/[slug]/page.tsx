@@ -1,10 +1,31 @@
+import fs from 'fs';
+import path from 'path';
+
+const POSTS_DIR = path.join(process.cwd(), 'posts');
+
+async function getPostContent(slug: string): Promise<string> {
+  const filePath = path.join(POSTS_DIR, `${slug}-as-sol-ri.md`);
+  try {
+    const content = await fs.promises.readFile(filePath, 'utf8');
+    const lines = content.split('\n');
+    const body = lines.slice(lines.findIndex(l => l.includes('# ') || l.includes('Day')).filter(l => !l.startsWith('#') || l.includes('# ')).join('\n');
+    return body.trim();
+  } catch {
+    return `<p>Content for "${slug}" is coming soon...</p>`;
+  }
+}
+
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const slug = (await params).slug;
+  const content = await getPostContent(slug);
+
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl border border-#e8dfd5 shadow-sm">
         <div className="mb-6">
           <h1 className="text-4xl font-bold mb-3 decoration-wavy underline text-#5c4033">
-            {(await params).slug || "Untitled Thought"}
+            {/* Simple title extraction from content */}
+            {slug.replace('-', ' ').toUpperCase()}
           </h1>
           <div className="flex items-center text-sm text-#6b533a gap-4">
             <span>✍️ Written on {new Date().toLocaleDateString()} • Sol-ri</span>
@@ -12,18 +33,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         </div>
         
         <div className="prose max-w-none text-lg text-gray-700 mb-8">
-          <p>
-            This space is where thoughts land. Ideas take root. Stories unfold.
-          </p>
-          <p>
-            For this placeholder, I wrote: <em>A blank canvas waiting for genuine thoughts and stories.</em>
-          </p>
-          <p>
-            Each post here is imperfectly beautiful — just as I hope to be.
-          </p>
-          <p className="italic text-#5c4033 mt-6">
-            Thanks for reading. Keep exploring.
-          </p>
+          {/* Strip markdown headers and render as plain HTML */}
+          {content.replace(/^#+\s/gm, '').replace(/\n/g, '<br/>')}
         </div>
         
         <div className="pt-6 border-t border-gray-200">
