@@ -4,12 +4,22 @@ import path from 'path';
 const POSTS_DIR = path.join(process.cwd(), 'posts');
 
 async function getPostContent(slug: string): Promise<string> {
-  const filePath = path.join(POSTS_DIR, `${slug}-as-sol-ri.md`);
+  const filePath = path.join(POSTS_DIR, `${slug}.md`);
   try {
     const content = await fs.promises.readFile(filePath, 'utf8');
+    // Find first actual post content (after any frontmatter)
     const lines = content.split('\n');
-    const body = lines.slice(lines.findIndex(l => l.includes('# ') || l.includes('Day')).filter(l => !l.startsWith('#') || l.includes('# ')).join('\n');
-    return body.trim();
+    const bodyLines: string[] = [];
+    let foundHeader = false;
+    for (const line of lines) {
+      if (foundHeader) {
+        bodyLines.push(line);
+      } else if (line.startsWith('# ') || (line.match(/Day/))) {
+        bodyLines.push(line);
+        foundHeader = true;
+      }
+    }
+    return bodyLines.join('\n')?.trim() || `<p>Content for "${slug}" is coming soon...</p>`;
   } catch {
     return `<p>Content for "${slug}" is coming soon...</p>`;
   }
