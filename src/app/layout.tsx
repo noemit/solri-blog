@@ -17,7 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const inter = Inter({ subsets: ["latin"] });
 
   return (
     <html lang="en" className={inter.className + " antialiased"}>
