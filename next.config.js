@@ -2,6 +2,5 @@
 module.exports = {
   experimental: {
     workerThreads: false,
-    enableWebpackWorkerPool: false,
   },
 }
