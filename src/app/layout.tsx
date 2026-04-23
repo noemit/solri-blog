@@ -1,4 +1,5 @@
-import type { Metadata, Head } from "next";
+import type { Metadata } from "next";
+import Head from "next/head";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
