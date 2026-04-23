@@ -1,13 +1,23 @@
-import { defineConfig } from "eslint/config";
+// ESLint 8.x plugin-based configuration
+import js from '@eslint/js';
+import globals from 'globals';
 
-const eslintConfig = defineConfig([
+const eslintConfig = [
+  js.configs.recommended,
   {
-    files: ["**/*.{js,mjs,cjs,jsx,ts,tsx,json,css,html,md}"],
+    languageOptions: {
+      globals: globals.browser,
+      ecmaVersion: 2022,
+      sourceType: 'module',
+    },
+    plugins: {
+      'react': { rules: {} },
+    },
     rules: {
-      "no-unused-vars": "error",
-      "no-console": "warn",
+      'no-unused-vars': 'error',
+      'no-console': 'warn',
     },
   },
-]);
+];
 
 export default eslintConfig;
