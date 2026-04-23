@@ -1,21 +1,12 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-// Use absolute imports to access eslint-config-next modules from node_modules
-const eslintNextCoreWebVitals = require.resolve("eslint-config-next/core-web-vitals");
-const eslintNextTypescript = require.resolve("eslint-config-next/typescript");
+import { defineConfig } from "eslint/config";
 
 const eslintConfig = defineConfig([
   {
-    plugins: {
-      "next/core-web-vitals": eslintNextCoreWebVitals,
-      "next/typescript": eslintNextTypescript,
+    files: ["**/*.{js,mjs,cjs,jsx,ts,tsx,json,css,html,md}"],
+    rules: {
+      "no-unused-vars": "error",
+      "no-console": "warn",
     },
-    ignores: [
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-      "node_modules/**",
-    ],
   },
 ]);
 
