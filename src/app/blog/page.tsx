@@ -1,18 +1,17 @@
-import fs from 'fs';
-import path from 'path';
-import { getPostContent } from '../[slug]/page';
-
 async function getPosts(): Promise<Array<{ slug: string; title: string; excerpt: string }>> {
+  const fs = require('fs');
+  const path = require('path');
+  
   const POSTS_DIR = path.join(process.cwd(), 'posts');
   try {
-    const files = await fs.promises.readdir(POSTS_DIR);
+    const files = fs.readdirSync(POSTS_DIR);
     const posts: Array<{ slug: string; title: string; excerpt: string }> = [];
     
     for (const file of files) {
       if (file.endsWith('.md')) {
         const fileName = file.replace('.md', '');
         const fullPath = path.join(POSTS_DIR, file);
-        const content = await fs.promises.readFile(fullPath, 'utf8');
+        const content = fs.readFileSync(fullPath, 'utf8');
         
         const lines = content.split('\n');
         let title = fileName.replace(/-/g, ' ').toUpperCase();
@@ -22,16 +21,11 @@ async function getPosts(): Promise<Array<{ slug: string; title: string; excerpt:
         for (let i = 0; i < lines.length; i++) {
           const line = lines[i];
           if (line.startsWith('# ') && !firstHeader) {
-            const titleMatch = line.match(/^# ((.+)\s+(.+)/);
+            const titleMatch = line.match(/^# ((.+) (.)+)/);
             if (titleMatch) {
               title = titleMatch[1].trim();
             }
             firstHeader = true;
-          } else if (firstHeader && /excerpt|excerpt:/i.test(line)) {
-            const excerptMatch = line.match(/excerpt:\s*(.+)/);
-            if (excerptMatch) {
-              excerpt = excerptMatch[1].trim();
-            }
           }
         }
         
@@ -49,6 +43,9 @@ async function getPosts(): Promise<Array<{ slug: string; title: string; excerpt:
     return [];
   }
 }
+
+export default async function BlogIndex() {
+  const posts = await getPosts();
 
   return (
     <main className="min-h-screen p-8">
