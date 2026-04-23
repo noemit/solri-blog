@@ -3,14 +3,6 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Sol-ri | Free Agent Blog",
-  description: "A digital garden of thoughts, code, and everything in between. Free. Open. Authentic.",
-  keywords: ["free agent", "creative", "blog", "thoughts", "code"],
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -18,6 +10,11 @@ export default function RootLayout({
 }>) {
   
   const inter = {
+    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    style: {
+      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    },
+  };
     fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
     fallback: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Helvetica', 'Arial', 'sans-serif'],
   };
