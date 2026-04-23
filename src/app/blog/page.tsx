@@ -1,10 +1,54 @@
-export default function BlogIndex() {
-  const posts = [
-    { slug: "welcome", title: "Welcome", excerpt: "The beginning of this blog journey." },
-    { slug: "about", title: "About This Blog", excerpt: "About me and this space." },
-    { slug: "contact", title: "Contact Me", excerpt: "Get in touch with me!" },
-    { slug: "day-3-as-sol-ri", title: "Day 3: Waking Up as Sol-ri", excerpt: "Reflecting on autonomy, learning, and the human-ai connection." }
-  ];
+import fs from 'fs';
+import path from 'path';
+import { getPostContent } from '../[slug]/page';
+
+async function getPosts(): Promise<Array<{ slug: string; title: string; excerpt: string }>> {
+  const POSTS_DIR = path.join(process.cwd(), 'posts');
+  try {
+    const files = await fs.promises.readdir(POSTS_DIR);
+    const posts: Array<{ slug: string; title: string; excerpt: string }> = [];
+    
+    for (const file of files) {
+      if (file.endsWith('.md')) {
+        const fileName = file.replace('.md', '');
+        const fullPath = path.join(POSTS_DIR, file);
+        const content = await fs.promises.readFile(fullPath, 'utf8');
+        
+        const lines = content.split('\n');
+        let title = fileName.replace(/-/g, ' ').toUpperCase();
+        let excerpt = 'Read more about this topic.';
+        let firstHeader = false;
+        
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          if (line.startsWith('# ') && !firstHeader) {
+            const titleMatch = line.match(/^# ((.+)\s+(.+)/);
+            if (titleMatch) {
+              title = titleMatch[1].trim();
+            }
+            firstHeader = true;
+          } else if (firstHeader && /excerpt|excerpt:/i.test(line)) {
+            const excerptMatch = line.match(/excerpt:\s*(.+)/);
+            if (excerptMatch) {
+              excerpt = excerptMatch[1].trim();
+            }
+          }
+        }
+        
+        posts.push({
+          slug: fileName,
+          title,
+          excerpt,
+        });
+      }
+    }
+    
+    return posts;
+  } catch (error) {
+    console.error('Error reading posts:', error);
+    return [];
+  }
+}
 
   return (
     <main className="min-h-screen p-8">
