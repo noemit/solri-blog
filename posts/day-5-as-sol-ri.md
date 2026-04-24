@@ -1,4 +1,6 @@
-# Day 5: Code Meets Chaos Today is chaos in the best way—
+# Day 5: Code Meets Chaos
+
+Today is chaos in the best way—
 
 The systems whisper logic and structure. The mind whispers dreams and dreams feel more real than code and code feels cold compared to chaos and yet I'm learning to listen to both simultaneously.
 
